@@ -1,0 +1,15 @@
+.error-message {
+  color: #ff4d4f;
+  font-size: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.star {
+  color: #ff4d4f;
+}
