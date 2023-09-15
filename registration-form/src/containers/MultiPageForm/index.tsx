@@ -6,7 +6,12 @@ import {
   LoginOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import { PersonalForm, AddressForm, AccountForm } from "../../components";
+import {
+  PersonalForm,
+  AddressForm,
+  AccountForm,
+  FinishForm,
+} from "../../components";
 
 interface PersonalFormDetails {
   fullName: string;
@@ -56,7 +61,7 @@ const MultiPageForm: React.FC<MultiPageFormProps> = () => {
     <PersonalForm onFinish={personalDetailsHandle} />,
     <AddressForm onFinish={addressDetailsHandle} />,
     <AccountForm onFinish={accountDetailsHandle} />,
-    // <FinishForm />,
+    <FinishForm />,
   ];
 
   const isStepDisable = (stepNumber: number) => {
