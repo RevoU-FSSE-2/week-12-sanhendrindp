@@ -23,7 +23,7 @@ interface AddressFormDetails {
   streetAddress: string;
   city: string;
   state: string;
-  zipCode: number;
+  zipCode: string;
 }
 
 interface AccountFormDetails {
@@ -35,12 +35,23 @@ interface MultiPageFormProps {}
 
 const MultiPageForm: React.FC<MultiPageFormProps> = () => {
   const [current, setCurrent] = useState<number>(0);
-  const [personalDetails, setPersonalDetails] =
-    useState<PersonalFormDetails | null>(null);
-  const [addressDetails, setAddressDetails] =
-    useState<AddressFormDetails | null>(null);
-  const [accountDetails, setAccountDetails] =
-    useState<AccountFormDetails | null>(null);
+
+  // To store data form for each steps
+  const [personalDetails, setPersonalDetails] = useState<PersonalFormDetails>({
+    fullName: "",
+    emailAddress: "",
+    date: "",
+  });
+  const [addressDetails, setAddressDetails] = useState<AddressFormDetails>({
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  });
+  const [accountDetails, setAccountDetails] = useState<AccountFormDetails>({
+    username: "",
+    password: "",
+  });
 
   const personalDetailsHandle = (values: PersonalFormDetails) => {
     setPersonalDetails(values);
@@ -58,9 +69,18 @@ const MultiPageForm: React.FC<MultiPageFormProps> = () => {
   };
 
   const forms = [
-    <PersonalForm onFinish={personalDetailsHandle} />,
-    <AddressForm onFinish={addressDetailsHandle} />,
-    <AccountForm onFinish={accountDetailsHandle} />,
+    <PersonalForm
+      onFinish={personalDetailsHandle}
+      initialValues={personalDetails}
+    />,
+    <AddressForm
+      onFinish={addressDetailsHandle}
+      initialValues={addressDetails}
+    />,
+    <AccountForm
+      onFinish={accountDetailsHandle}
+      initialValues={accountDetails}
+    />,
     <FinishForm />,
   ];
 
@@ -69,17 +89,20 @@ const MultiPageForm: React.FC<MultiPageFormProps> = () => {
       return false;
     }
     if (stepNumber === 1) {
-      return personalDetails === null;
+      return (
+        personalDetails.fullName === "" || personalDetails.emailAddress === ""
+      );
     }
     if (stepNumber === 2) {
-      return personalDetails === null || addressDetails === null;
+      return (
+        addressDetails.streetAddress === "" ||
+        addressDetails.city === "" ||
+        addressDetails.state === "" ||
+        addressDetails.zipCode === ""
+      );
     }
     if (stepNumber === 3) {
-      return (
-        personalDetails === null ||
-        addressDetails === null ||
-        accountDetails === null
-      );
+      return accountDetails.username === "" || accountDetails.password === "";
     }
   };
 

@@ -3,6 +3,7 @@ import { Form, Input, Button } from "antd";
 
 interface AccountFormProps {
   onFinish: (values: AccountFormData) => void;
+  initialValues: AccountFormData;
 }
 
 interface AccountFormData {
@@ -10,9 +11,12 @@ interface AccountFormData {
   password: string;
 }
 
-const AccountForm: React.FC<AccountFormProps> = ({ onFinish }) => {
+const AccountForm: React.FC<AccountFormProps> = ({
+  onFinish,
+  initialValues,
+}) => {
   return (
-    <Form<AccountFormData> onFinish={onFinish}>
+    <Form<AccountFormData> onFinish={onFinish} initialValues={initialValues}>
       <Form.Item
         label="Username"
         name="username"

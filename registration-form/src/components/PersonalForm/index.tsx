@@ -3,6 +3,7 @@ import { Form, Input, DatePicker, Button } from "antd";
 
 interface PersonalFormProps {
   onFinish: (values: PersonalFormData) => void;
+  initialValues: PersonalFormData;
 }
 
 interface PersonalFormData {
@@ -11,9 +12,12 @@ interface PersonalFormData {
   date: string;
 }
 
-const PersonalForm: React.FC<PersonalFormProps> = ({ onFinish }) => {
+const PersonalForm: React.FC<PersonalFormProps> = ({
+  onFinish,
+  initialValues,
+}) => {
   return (
-    <Form<PersonalFormData> onFinish={onFinish}>
+    <Form<PersonalFormData> onFinish={onFinish} initialValues={initialValues}>
       <Form.Item
         label="Full Name"
         name="fullName"

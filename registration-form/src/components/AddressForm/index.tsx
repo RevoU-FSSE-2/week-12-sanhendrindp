@@ -3,18 +3,22 @@ import { Form, Input, Button } from "antd";
 
 interface AddressFormProps {
   onFinish: (values: AddressFormData) => void;
+  initialValues: AddressFormData;
 }
 
 interface AddressFormData {
   streetAddress: string;
   city: string;
   state: string;
-  zipCode: number;
+  zipCode: string;
 }
 
-const AddressForm: React.FC<AddressFormProps> = ({ onFinish }) => {
+const AddressForm: React.FC<AddressFormProps> = ({
+  onFinish,
+  initialValues,
+}) => {
   return (
-    <Form<AddressFormData> onFinish={onFinish}>
+    <Form<AddressFormData> onFinish={onFinish} initialValues={initialValues}>
       <Form.Item
         label="Street Address"
         name="streetAddress"
