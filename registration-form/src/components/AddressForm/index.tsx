@@ -24,7 +24,9 @@ const AddressForm: React.FC<AddressFormProps> = ({
     streetAddress: Yup.string().required("Please enter your street address"),
     city: Yup.string().required("Please enter your city"),
     state: Yup.string().required("Please enter your state"),
-    zipCode: Yup.string().required("Please enter your zip code"),
+    zipCode: Yup.string()
+      .required("Please enter your zip code")
+      .matches(/^\d{5}$/, "Zip code must be a valid 5-digit code"),
   });
 
   return (
