@@ -6,7 +6,7 @@ import {
   LoginOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import { PersonalForm, AddressForm } from "../../components";
+import { PersonalForm, AddressForm, AccountForm } from "../../components";
 
 interface PersonalFormDetails {
   fullName: string;
@@ -21,6 +21,11 @@ interface AddressFormDetails {
   zipCode: number;
 }
 
+interface AccountFormDetails {
+  username: string;
+  password: string;
+}
+
 interface MultiPageFormProps {}
 
 const MultiPageForm: React.FC<MultiPageFormProps> = () => {
@@ -29,7 +34,8 @@ const MultiPageForm: React.FC<MultiPageFormProps> = () => {
     useState<PersonalFormDetails | null>(null);
   const [addressDetails, setAddressDetails] =
     useState<AddressFormDetails | null>(null);
-  // const [accountDetails, setAccountDetails] = useState<AccountDetails | null>(null);
+  const [accountDetails, setAccountDetails] =
+    useState<AccountFormDetails | null>(null);
 
   const personalDetailsHandle = (values: PersonalFormDetails) => {
     setPersonalDetails(values);
@@ -41,10 +47,15 @@ const MultiPageForm: React.FC<MultiPageFormProps> = () => {
     setCurrent(2);
   };
 
+  const accountDetailsHandle = (values: AccountFormDetails) => {
+    setAccountDetails(values);
+    setCurrent(3);
+  };
+
   const forms = [
     <PersonalForm onFinish={personalDetailsHandle} />,
     <AddressForm onFinish={addressDetailsHandle} />,
-    // <AccountInformation onFinish={() => setCurrent(3)} />,
+    <AccountForm onFinish={accountDetailsHandle} />,
     // <FinishForm />,
   ];
 
@@ -57,6 +68,13 @@ const MultiPageForm: React.FC<MultiPageFormProps> = () => {
     }
     if (stepNumber === 2) {
       return personalDetails === null || addressDetails === null;
+    }
+    if (stepNumber === 3) {
+      return (
+        personalDetails === null ||
+        addressDetails === null ||
+        accountDetails === null
+      );
     }
   };
 
